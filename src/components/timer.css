@@ -1,0 +1,35 @@
+.timerLayout{
+    margin-top: 2rem;
+    background-color: #ffffff;
+    /* center the element with flexbox */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* number on the timer */
+.display{
+    padding-top: 1.5rem;
+    font-size: 15em;
+}
+
+.customBtn{
+    border: 3px solid #333333;
+    background-color: #ffffff;
+    /* box-shadow: 2px 3px 2px #666666; */
+    padding:0.5rem 1rem;
+    margin: 1rem 2rem;
+    font-size: 1.5em;
+    color: #444444;
+    outline: 0;
+}
+
+.customBtn:hover{
+    background-color: #f1f1f1;
+    color: #000000;;
+}
+
+.ui.button{
+    background-color:white;
+}

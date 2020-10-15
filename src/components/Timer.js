@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import './timer.css'
 const Timer = () =>{
     const [minute, setMinute] = useState(25)
     const [second, setSecond] = useState(0)
     const [timerType,setTimerType] = useState('session')
     const [isRunning, setIsRunning] = useState(false)
+    const [counter, setCounter] = useState(1)
     
     const setSession = () =>{
         setTimerType('session')
@@ -35,13 +37,27 @@ const Timer = () =>{
 
     const countDown = () =>{
             const interval = setInterval(()=>{
-                if(second === 0){
+                //the numbers look kindda yikes, but meh it works!
+                if(second === 0 && minute >=1){
                     setMinute(minute-1)
                     setSecond(59)
+                }else if(second === 0 && minute ===0){
+                     clearInterval(countDown)
+                    setCounter(counter%5+1)
+                    const progress = `${counter}of 4`
+
+                    if(timerType==='session'){
+                        setShortBreak()
+                    }else if(timerType==='session'&& counter%5===0){
+                        setLongBreak()
+                    }else{
+                        setSession()
+                    }
+                    window.alert(timerType)
                 }else{
                     setSecond(second-1)
                 }
-            },1000)
+            },0.5)
             //return interval for clean up
             return interval
     }
@@ -95,21 +111,18 @@ const Timer = () =>{
         }
     },[isRunning,minute,second,timerType])
 
-    const timerDisplay = {
-        padding: "0.5em",
-        fontSize:"100px"
-    }
 
+    const redButton = "ui button color red"
     return(
     <div>
-        <div className="ui buttons ">
-            <button className="ui button color red" onClick={()=>setSession()}>Session</button>
-            <button className="ui button color red" onClick={()=>setShortBreak()}>Short break</button>
-            <button className="ui button color red" onClick={()=>setLongBreak()}>Long break</button>
+        <div>
+            <button className="customBtn" onClick={()=>setSession()}>Session</button>
+            <button className="customBtn" onClick={()=>setShortBreak()}>Short break</button>
+            <button className="customBtn" onClick={()=>setLongBreak()}>Long break</button>
         </div>
         <br />
         <div>
-            <h1 style={timerDisplay}>{doubleDigit(minute)}:{doubleDigit(second)}</h1>
+            <h1 className="display">{doubleDigit(minute)}:{doubleDigit(second)}</h1>
         </div>
         <br />
         <div>
@@ -123,7 +136,7 @@ const Timer = () =>{
         <br/>
         <br/>
         <div>
-            <button className="ui fade animated button color red" onClick={()=> setIsRunning(true)}>
+            <button className="ui fade animated button color white" onClick={()=> setIsRunning(true)}>
                 <div className="visible content">
                     <i className="icon play" />
                 </div>
@@ -132,7 +145,7 @@ const Timer = () =>{
                 </div>
             </button>
 
-            <button className="ui fade animated button color red" onClick={()=> resetTimer()}>
+            <button className="ui fade animated button color white" onClick={()=> resetTimer()}>
                 <div className="visible content">
                     <i className="icon redo alternate" />
                 </div>
@@ -141,6 +154,7 @@ const Timer = () =>{
                 </div>
             </button>
         </div>
+
     </div>
     )
 }
