@@ -1,0 +1,19 @@
+.imgAbout1{
+    max-width: 25%;
+    height: auto;
+}
+
+.imgAbout2{
+    max-width: 35%;
+    height: auto;
+}
+
+.imgLogo{
+    max-width: 10%;
+    height: auto;
+}
+
+.donation{
+    padding-left: 30%;
+    padding-right: 30%;
+}
