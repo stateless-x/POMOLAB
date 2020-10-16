@@ -25,20 +25,20 @@ const About = () =>{
                 <h2>Learn more about Pomodoro technique: <a href="/">Click Here</a> (Thai Version)</h2>
             </div>
 
-            <div className="ui vertical segment center aligned">
+            <div className="ui vertical inverted segment center aligned">
                 <h3>Donation</h3>
-                <h5>I decided not to put ads because it can be incredibly annoying to you guys.
-                <br/>But If you guys feel generous today, feel free to donate me for some cups of coffee ;)</h5>
+                <h5>I decided not to put on ads because it can be incredibly annoying to you guys.
+                <br/>But If you guys feel generous today, i don't mind money for some cups of coffee <br/>
+                (〃￣ω￣〃ゞ
+                </h5>
                 
                 <div className="donation">
-                    <div className="ui segment">
-                        <div className="ui small header">Paypal:</div>
+                        <div className="ui small inverted header">Paypal:</div>
                         <div> b.wanats@gmail.com</div>
-                        <div className="ui small header">PromptPay:</div>
+                        <div className="ui small inverted header">PromptPay:</div>
                         <div> 084-534-4560</div>
-                        <div className="ui small header">Bitcoin:</div>
+                        <div className="ui small inverted header">Bitcoin:</div>
                         <div>TBA</div>
-                </div>
             </div>
 
             </div>     

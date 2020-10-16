@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './timer.css'
+
 const Timer = () =>{
     const [minute, setMinute] = useState(25)
     const [second, setSecond] = useState(0)
     const [timerType,setTimerType] = useState('session')
     const [isRunning, setIsRunning] = useState(false)
-    const [counter, setCounter] = useState(1)
+    const [counter, setCounter] = useState(0)
     
     const setSession = () =>{
         setTimerType('session')
@@ -28,13 +29,6 @@ const Timer = () =>{
         setSecond(0)
     }
 
-    const setCustom = (customTime) =>{
-        setTimerType('custom')
-        setIsRunning(false)
-        setMinute(customTime)
-        setSecond(0)
-    }
-
     const countDown = () =>{
             const interval = setInterval(()=>{
                 //the numbers look kindda yikes, but meh it works!
@@ -42,14 +36,17 @@ const Timer = () =>{
                     setMinute(minute-1)
                     setSecond(59)
                 }else if(second === 0 && minute ===0){
-                     clearInterval(countDown)
-                    setCounter(counter%5+1)
-                    const progress = `${counter}of 4`
-
-                    if(timerType==='session'){
+                    setIsRunning(false)
+                    clearInterval(countDown)
+                    //the last session ends with long break 
+                    if(timerType==='session'&& counter!==3){
                         setShortBreak()
-                    }else if(timerType==='session'&& counter%5===0){
+                        setCounter(counter+1)
+                    }else if(timerType==='session'&& counter===3){
                         setLongBreak()
+                        setCounter(counter+1)
+                    }else if(timerType==='longBreak' && counter===4){
+                        setCounter(0)
                     }else{
                         setSession()
                     }
@@ -57,7 +54,7 @@ const Timer = () =>{
                 }else{
                     setSecond(second-1)
                 }
-            },0.5)
+            },1000)
             //return interval for clean up
             return interval
     }
@@ -72,8 +69,6 @@ const Timer = () =>{
                     return setShortBreak()
                 case 'longBreak':
                     return setLongBreak()
-                case 'custom':
-                    return setCustom(minute+1)
                 default:
                     return setSession()
             }
@@ -82,15 +77,17 @@ const Timer = () =>{
 
     const plusOne = () =>{
         if(isRunning === false){
-            var customTime = minute < 40 ? minute+1 : minute
-            setCustom(customTime)
+            var time = minute < 40 ? minute+1 : minute
+            setMinute(time)
+            // setCustom(customTime)
         }
     }
 
     const minusOne = () =>{
         if(isRunning === false){
-            var customTime = minute > 1 ? minute - 1: minute
-            setCustom(customTime)
+            var time = minute > 1 ? minute - 1: minute
+            // setCustom(customTime)
+            setMinute(time)
             }
     }
     
@@ -111,8 +108,7 @@ const Timer = () =>{
         }
     },[isRunning,minute,second,timerType])
 
-
-    const redButton = "ui button color red"
+    const progress = `${counter} of 4 Sessions`
     return(
     <div>
         <div>
@@ -120,12 +116,12 @@ const Timer = () =>{
             <button className="customBtn" onClick={()=>setShortBreak()}>Short break</button>
             <button className="customBtn" onClick={()=>setLongBreak()}>Long break</button>
         </div>
-        <br />
+
         <div>
             <h1 className="display">{doubleDigit(minute)}:{doubleDigit(second)}</h1>
         </div>
-        <br />
-        <div>
+        
+        <div className="timerconfig">
             <button className="ui compact icon button" onClick={()=>plusOne()}>
                 <i className="icon plus"/>
             </button>
@@ -133,8 +129,6 @@ const Timer = () =>{
                 <i className="icon minus" />
             </button>
         </div>
-        <br/>
-        <br/>
         <div>
             <button className="ui fade animated button color white" onClick={()=> setIsRunning(true)}>
                 <div className="visible content">
@@ -153,6 +147,7 @@ const Timer = () =>{
                     Reset
                 </div>
             </button>
+            {progress}
         </div>
 
     </div>
