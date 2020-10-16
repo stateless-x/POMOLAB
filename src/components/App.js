@@ -13,7 +13,6 @@ const App = () =>{
                 <div className="timerLayout">
                     <Timer/>                  
                  </div>
-                 <Donation />
             </Route>
             <Route path="/about">
                 <About />
